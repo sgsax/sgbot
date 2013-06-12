@@ -38,10 +38,12 @@ sub handler {
     $msg = decode_utf8 $msg;
     if ($msg =~ /https?:\/\//) {
         $msg = encode_utf8(get_title($msg));
-        if ($priv) {
-            $server->command ("msg $nick your url is \"$msg\"");
-        } else {
-            $server->command ("msg $target $nick\'s url is \"$msg\"");
+        if ($msg ne "") {
+            if ($priv) {
+                $server->command ("msg $nick your url is \"$msg\"");
+            } else {
+                $server->command ("msg $target $nick\'s url is \"$msg\"");
+            }
         }
     }
 }
