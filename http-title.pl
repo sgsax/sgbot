@@ -24,7 +24,11 @@ sub get_title {
             my $raw = get($text);
             my $parser = HTML::HeadParser->new;
             $parser->parse($raw);
-            $ret = $parser->header('Title');
+            if (defined $parser->header('Title')) {
+                $ret = $parser->header('Title');
+            } else {
+                $ret = "";
+            }  
             last;
         }
     }
