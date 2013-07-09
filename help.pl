@@ -17,6 +17,7 @@ sub list_help {
                      "8ball: The Magic 8 Ball",
                      "bofh: Display witty fortunes for sysadmins",
                      "calc <formula>: Simple, in-line calculator, evaluates <formula> and returns the answer",
+                     "cool: silly response to this statement",
                      "help: Display this help",
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
                      "weather [<location>]: Display weather report for <location> or MHK if not indicated",
