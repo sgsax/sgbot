@@ -18,8 +18,7 @@ sub handler {
     use utf8;
     $msg = decode_utf8 $msg;
     if (($msg =~ m/^!renick/) && ($nick eq 'sgsax')) {
-        $msg = encode_utf8("nick sgbot");
-        $server->command ("$msg");
+        $server->command ("NICK sgbot");
     }
 }
 
