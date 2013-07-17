@@ -34,7 +34,7 @@ sub shake_it {
                     "Outlook not so good",
                     "Very doubtful" );
 
-    return "Magic 8 Ball Says: " . $answers[ rand @answers ]; 
+    return encode_utf8("Magic 8 Ball Says: " . $answers[ rand @answers ]); 
 }
 
 sub handler {
