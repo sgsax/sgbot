@@ -1,5 +1,4 @@
 use strict;
-use warnings;
 use Encode;
 use vars qw($VERSION %IRSSI);
 use Irssi;
