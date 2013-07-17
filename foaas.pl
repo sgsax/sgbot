@@ -2,7 +2,6 @@ use strict;
 use Encode;
 use vars qw($VERSION %IRSSI);
 use Irssi;
-use utf8;
 
 our $VERSION = '0.1';
 our %IRSSI = (
@@ -56,6 +55,7 @@ sub generate_message {
 }
 sub handler {
     my ($server, $msg, $nick, $addr, $target, $priv) = @_;
+    use utf8;
 
     $msg = decode_utf8 $msg;
     if ($msg =~ m/^!rfo/) { $msg = randomizer($msg) };
