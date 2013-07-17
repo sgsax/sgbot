@@ -18,10 +18,19 @@ sub list_help {
                      "bofh: Display witty fortunes for sysadmins",
                      "calc <formula>: Simple, in-line calculator, evaluates <formula> and returns the answer",
                      "cool: silly response to this statement",
+                     "donut <name>: tell <name> to go and take a flying fuck at a rolling donut (FOAAS)",
+                     "everything: fuck everything (FOAAS)",
+                     "everyone: everyone can go and fuck off (FOAAS)",
                      "help: Display this help",
+                     "linus: witty fuck off that only Linus Torvalds could say (FOAAS)",
+                     "off <name>: tell <name> to fuck off (FOAAS)",
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
+                     "this: fuck this (FOAAS)",
+                     "that: fuck that (FOAAS)",
                      "weather [<location>]: Display weather report for <location> or MHK if not indicated",
-                     "woot [img] [buy]: Display today's Woot.com special, optionally include image and/or \"buy now\" URL", );
+                     "woot [img] [buy]: Display today's Woot.com special, optionally include image and/or \"buy now\" URL", 
+                     "you <name>: tell <name>, fuck you (FOAAS)",
+                     );
 
     return @commands;
 }
