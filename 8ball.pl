@@ -44,6 +44,7 @@ sub handler {
     $msg = decode_utf8($msg);
     if ($msg =~ m/^!8ball/) {
         $msg = shake_it();
+        chomp($msg);
         $msg = encode_utf8($msg);
         if ($priv) {
             $server->command ("msg $nick $msg");
