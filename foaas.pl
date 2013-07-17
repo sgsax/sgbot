@@ -2,7 +2,6 @@ use strict;
 use Encode;
 use vars qw($VERSION %IRSSI);
 use Irssi;
-use Data::Dumper;
 
 our $VERSION = '0.1';
 our %IRSSI = (
@@ -34,7 +33,6 @@ sub generate_message {
     my $ret;
 
     my @parts = split(/\s+/, $msg);
-    print Dumper(@parts);
     if ($parts[0] =~ m/^!off/) {
         $ret = "$parts[1]: Fuck off. - $nick";
     } elsif ($parts[0] =~ m/^!you/) {
@@ -51,8 +49,6 @@ sub generate_message {
         $ret = "$parts[1]: Go and take a flying fuck at a rolling donut. - $nick";
     } elsif ($parts[0] =~ m/^!linus/) {
         $ret = "$parts[1]: There aren't enough swear-words in the English language, so now I'll have to call you perkeleen vittupää just to express my disgust and frustration with this crap. - $nick";
-    } else {
-        print "no command received: $msg\n";
     }
 
     return $ret;
