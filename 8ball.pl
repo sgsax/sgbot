@@ -34,7 +34,7 @@ sub shake_it {
                     "Outlook not so good",
                     "Very doubtful" );
 
-    return encode_utf8("Magic 8 Ball Says: " . $answers[ rand @answers ]); 
+    return "Magic 8 Ball Says: " . $answers[ rand @answers ]; 
 }
 
 sub handler {
@@ -43,7 +43,7 @@ sub handler {
 #    use utf8;
     $msg = decode_utf8($msg);
     if ($msg =~ m/^!8ball/) {
-        $msg = encode_utf8(shake_it());
+        $msg = encode_utf8(chomp(shake_it()));
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
