@@ -40,10 +40,10 @@ sub shake_it {
 sub handler {
     my ($server, $msg, $nick, $addr, $target, $priv) = @_;
 
-    use utf8;
-    $msg = utf8::decode($msg);
+#    use utf8;
+    $msg = decode_utf8($msg);
     if ($msg =~ m/^!8ball/) {
-        $msg = utf8::encode(shake_it());
+        $msg = encode_utf8(shake_it());
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
