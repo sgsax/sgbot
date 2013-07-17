@@ -43,7 +43,8 @@ sub handler {
 #    use utf8;
     $msg = decode_utf8($msg);
     if ($msg =~ m/^!8ball/) {
-        $msg = encode_utf8(chomp(shake_it()));
+        $msg = shake_it();
+        $msg = encode_utf8($msg);
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
