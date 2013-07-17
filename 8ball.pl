@@ -41,9 +41,9 @@ sub handler {
     my ($server, $msg, $nick, $addr, $target, $priv) = @_;
 
     use utf8;
-    $msg = decode_utf8 $msg;
+    $msg = utf8::decode($msg);
     if ($msg =~ m/^!8ball/) {
-        $msg = encode_utf8(shake_it());
+        $msg = utf8::encode(shake_it());
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
