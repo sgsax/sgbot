@@ -33,7 +33,7 @@ sub generate_message {
     my ($msg, $nick) = @_;
     my $ret;
 
-    my @parts = split(/\ */, $msg);
+    my @parts = split(/\s+/, $msg);
     print Dumper(@parts);
     if ($parts[0] =~ m/^!off/) {
         $ret = "$parts[1]: Fuck off. - $nick";
