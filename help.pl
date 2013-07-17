@@ -24,6 +24,7 @@ sub list_help {
                      "help: Display this help",
                      "linus: witty fuck off that only Linus Torvalds could say (FOAAS)",
                      "off <name>: tell <name> to fuck off (FOAAS)",
+                     "rfo [<name>]: random FOAAS selection (FOAAS)",
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
                      "this: fuck this (FOAAS)",
                      "that: fuck that (FOAAS)",

@@ -15,7 +15,7 @@ our %IRSSI = (
 sub randomizer {
     my $msg = shift;
 
-    my @parts = split(/\s+, $msg);
+    my @parts = split(/\s+/, $msg);
     my @selection = ( "!off $parts[1]",
                       "!you $parts[1]",
                       "!this",
