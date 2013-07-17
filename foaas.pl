@@ -49,6 +49,8 @@ sub generate_message {
         $ret = "$parts[1]: Go and take a flying fuck at a rolling donut. - $nick";
     } elsif ($parts[0] =~ m/^!linus/) {
         $ret = "$parts[1]: There aren't enough swear-words in the English language, so now I'll have to call you perkeleen vittupää just to express my disgust and frustration with this crap. - $nick";
+    } else {
+        print "no command received: $msg\n";
     }
 
     return $ret;
