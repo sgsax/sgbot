@@ -1,4 +1,5 @@
 use strict;
+use warnings;
 use Encode;
 use vars qw($VERSION %IRSSI);
 use Irssi;
@@ -43,9 +44,7 @@ sub handler {
 #    use utf8;
     $msg = decode_utf8($msg);
     if ($msg =~ m/^!8ball/) {
-        $msg = shake_it();
-        chomp($msg);
-        $msg = encode_utf8($msg);
+        $msg = encode_utf8(shake_it());
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
