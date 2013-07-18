@@ -16,9 +16,9 @@ sub select_sound {
     my $input = shift;
     my $ret = "";
 
-    if ($msg =~ m/^!tada/) {
+    if ($input =~ m/^!tada/) {
         $ret = "http://kan.st/10K";
-    } elsif ($msg =~ m/^!trombone/) {
+    } elsif ($input =~ m/^!trombone/) {
         $ret = "http://kan.st/XV";
     }
 
