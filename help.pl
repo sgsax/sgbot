@@ -34,7 +34,8 @@ sub list_help {
                      "trombone: print url for sad trombone sound",
                      "up <name>: <name> really fucked up (FOAAS)",
                      "weather [<location>]: Display weather report for <location> or MHK if not indicated",
-                     "woot [img] [buy]: Display today's Woot.com special, optionally include image and/or \"buy now\" URL", 
+                     "woot [img] [buy]: Display today's Woot.com special, optionally include image and/or \"buy now\" URL",
+                     "yeah <name>: fuck yeah! (FOAAS)",
                      "you <name>: tell <name>, fuck you (FOAAS)",
                      );
 
