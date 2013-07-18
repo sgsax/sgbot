@@ -31,7 +31,7 @@ sub handler {
     use utf8;
     $msg = decode_utf8 $msg;
 
-    $msg = select_sound($msg) {
+    $msg = select_sound($msg)
     if ($msg ne "") {
         $msg = encode_utf8($msg);
         if ($priv) {
