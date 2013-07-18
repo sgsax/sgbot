@@ -28,6 +28,7 @@ sub list_help {
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
                      "this: fuck this (FOAAS)",
                      "that: fuck that (FOAAS)",
+                     "up <name>: <name> really fucked up (FOAAS)",
                      "weather [<location>]: Display weather report for <location> or MHK if not indicated",
                      "woot [img] [buy]: Display today's Woot.com special, optionally include image and/or \"buy now\" URL", 
                      "you <name>: tell <name>, fuck you (FOAAS)",

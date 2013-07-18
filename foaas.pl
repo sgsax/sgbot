@@ -34,9 +34,11 @@ sub generate_message {
 
     my @parts = split(/\s+/, $msg);
     if ($parts[0] =~ m/^!off/) {
-        $ret = "$parts[1]: Fuck off. - $nick";
+        $ret = "Fuck off. - $nick";
     } elsif ($parts[0] =~ m/^!you/) {
-        $ret = "$parts[1]: Fuck you. - $nick";
+        $ret = "Fuck you. - $nick";
+    } elsif ($parts[0] =~ m/^!up/) {
+        $ret = "You really fucked up this time. - $nick";
     } elsif ($parts[0] =~ m/^!this/) {
         $ret = "Fuck this. - $nick";
     } elsif ($parts[0] =~ m/^!that/) {
@@ -46,10 +48,12 @@ sub generate_message {
     } elsif ($parts[0] =~ m/^!everyone/) {
         $ret = "Everyone can go and fuck off. - $nick";
     } elsif ($parts[0] =~ m/^!donut/) {
-        $ret = "$parts[1]: Go and take a flying fuck at a rolling donut. - $nick";
+        $ret = "Go and take a flying fuck at a rolling donut. - $nick";
     } elsif ($parts[0] =~ m/^!linus/) {
         $ret = "$parts[1]: There aren't enough swear-words in the English language, so now I'll have to call you perkeleen vittupää just to express my disgust and frustration with this crap. - $nick";
     }
+
+    if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
 
     return $ret;
 }
