@@ -30,7 +30,7 @@ sub randomizer {
 
 sub generate_message {
     my ($msg, $nick) = @_;
-    my $ret;
+    my $ret = "";
 
     my @parts = split(/\s+/, $msg);
     if ($parts[0] =~ m/^!off/) {
@@ -69,11 +69,13 @@ sub handler {
     if ($msg =~ m/^!rfo/) { $msg = randomizer($msg) };
     $msg = generate_message($msg, $nick);
 
-    $msg = encode_utf8($msg);
-    if ($priv) {
-        $server->command ("msg $nick $msg");
-    } else {
-        $server->command ("msg $target $msg");
+    if ($msg ne "") {
+        $msg = encode_utf8($msg);
+        if ($priv) {
+            $server->command ("msg $nick $msg");
+        } else {
+            $server->command ("msg $target $msg");
+        }
     }
 }
 
