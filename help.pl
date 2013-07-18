@@ -25,6 +25,7 @@ sub list_help {
                      "linus: witty fuck off that only Linus Torvalds could say (FOAAS)",
                      "off <name>: tell <name> to fuck off (FOAAS)",
                      "rfo [<name>]: random FOAAS selection (FOAAS)",
+                     "rimshot: print url for rinshot sound",
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
                      "tada: print url for tada sound",
                      "this: fuck this (FOAAS)",
