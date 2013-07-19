@@ -18,9 +18,13 @@ sub randomizer {
     my @parts = split(/\s+/, $msg);
     my @selection = ( "!off $parts[1]",
                       "!you $parts[1]",
+                      "!yeah $parts[1]",
+                      "!no $parts[1]",
+                      "!up $parts[1]",
                       "!this",
                       "!that",
                       "!everything",
+                      "!holy",
                       "!everyone",
                       "!donut $parts[1]",
                       "!linus $parts[1]" );
@@ -54,6 +58,8 @@ sub generate_message {
         $ret = "Fuck that. - $nick";
     } elsif ($parts[0] =~ m/^!everything/) {
         $ret = "Fuck everything. - $nick";
+    } elsif ($parts[0] =~ m/^!holy/) {
+        $ret = "Holy fuck! - $nick";
     } elsif ($parts[0] =~ m/^!everyone/) {
         $ret = "Everyone can go and fuck off. - $nick";
     } elsif ($parts[0] =~ m/^!donut/) {
