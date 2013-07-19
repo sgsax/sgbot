@@ -42,6 +42,9 @@ sub generate_message {
     } elsif ($parts[0] =~ m/^!yeah/) {
         $ret = "Fuck yeah! - $nick";
         if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
+    } elsif ($parts[0] =~ m/^!no/) {
+        $ret = "Fuck no!  Are you kidding me? - $nick";
+        if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
     } elsif ($parts[0] =~ m/^!up/) {
         $ret = "You really fucked up this time. - $nick";
         if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }

@@ -24,6 +24,7 @@ sub list_help {
                      "everyone: everyone can go and fuck off (FOAAS)",
                      "help: Display this help",
                      "linus: witty fuck off that only Linus Torvalds could say (FOAAS)",
+                     "no: fuck no (FOAAS)",
                      "off <name>: tell <name> to fuck off (FOAAS)",
                      "rfo [<name>]: random FOAAS selection (FOAAS)",
                      "rimshot: print url for rimshot sound",
