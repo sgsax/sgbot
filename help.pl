@@ -30,6 +30,7 @@ sub list_help {
                      "off <name>: tell <name> to fuck off (FOAAS)",
                      "rfo [<name>]: random FOAAS selection (FOAAS)",
                      "rimshot: print url for rimshot sound",
+                     "roy: every tech support call ever",
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
                      "tada: print url for tada sound",
                      "this: fuck this (FOAAS)",
