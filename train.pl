@@ -41,11 +41,11 @@ sub handler {
         my $i;
         if ($priv) {
             for ($i=0; $i<4; $i++) {
-                $server->command ("msg $nick ${$msg}[$i]");
+                $server->command ("msg $nick $$msg[$i]");
             }
         } else {
             for ($i=0; $i<4; $i++) {
-                $server->command ("msg $target ${$msg}[$i]");
+                $server->command ("msg $target $$msg[$i]");
             }
         }
     }
