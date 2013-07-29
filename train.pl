@@ -37,15 +37,15 @@ sub handler {
     $msg = decode_utf8 $msg;
     if ($msg =~ m/^!train/) {
         my @data = split(/ /, $msg);
-        $msg = encode_utf8(make_train($data[1]));
+        my $train = encode_utf8(make_train($data[1]));
         my $i;
         if ($priv) {
             for ($i=0; $i<4; $i++) {
-                $server->command ("msg $nick $$msg[$i]");
+                $server->command ("msg $nick $$train[$i]");
             }
         } else {
             for ($i=0; $i<4; $i++) {
-                $server->command ("msg $target $$msg[$i]");
+                $server->command ("msg $target $$train[$i]");
             }
         }
     }
