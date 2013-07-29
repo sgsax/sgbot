@@ -14,19 +14,20 @@ our %IRSSI = (
 
 sub make_train {
     my $name = shift;
+    my @train=();
     my $len = length($name);
     my $pad = " " x ((10-$len)/2) . $name;
     $pad .= " " x ((10-$len)/2);
     if (($len % 2)==1) { $pad .= " "; }
     
-    my $train='          ____                           
-       _||____|  |  __________   __________ 
-      (   FAIL   | |          | |**********|
-      /-()-----() ~ ()------() ~ ()------()';
+    $train[0]='              ____';
+    $train[1]='       _||____|  |  __________   __________';
+    $train[2]='      (   FAIL   | |          | |**********|';
+    $train[3]='      /-()-----() ~ ()------() ~ ()------()';
     
-    $train =~ s/\*{10}/$pad/;
+    $train[2] =~ s/\*{10}/$pad/;
     
-    return $train;
+    return \@train;
 }
 
 sub handler {
@@ -37,10 +38,15 @@ sub handler {
     if ($msg =~ m/^!train/) {
         my @data = split(/ /, $msg);
         $msg = encode_utf8(make_train($data[1]));
+        my $i;
         if ($priv) {
-            $server->command ("msg $nick $msg");
+            for ($i=0; $i<4; $i++) {
+                $server->command ("msg $nick ${$msg}[$i]");
+            }
         } else {
-            $server->command ("msg $target $msg");
+            for ($i=0; $i<4; $i++) {
+                $server->command ("msg $target ${$msg}[$i]");
+            }
         }
     }
 }

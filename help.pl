@@ -35,6 +35,7 @@ sub list_help {
                      "tada: print url for tada sound",
                      "this: fuck this (FOAAS)",
                      "that: fuck that (FOAAS)",
+                     'train <name>: all aboard the fail train",
                      "trombone: print url for sad trombone sound",
                      "up <name>: <name> really fucked up (FOAAS)",
                      "weather [<location>]: Display weather report for <location> or MHK if not indicated",
