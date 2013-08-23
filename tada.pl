@@ -24,6 +24,8 @@ sub select_sound {
         $ret = "http://kan.st/10K";
     } elsif ($input =~ m/^!trombone/) {
         $ret = "http://kan.st/XV";
+    } elsif ($input =~ m/^!khan/) {
+        $ret = "http://kan.st/13p";
     }
 
     return $ret;

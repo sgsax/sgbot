@@ -25,6 +25,7 @@ sub list_help {
                      "help: Display this help",
                      "holy: holy fuck (FOAAS)",
                      "idm: When is it IDM time?",
+                     "kahn: play Khan sound",
                      "linus: witty fuck off that only Linus Torvalds could say (FOAAS)",
                      "no: fuck no (FOAAS)",
                      "off <name>: tell <name> to fuck off (FOAAS)",
