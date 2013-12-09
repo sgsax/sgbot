@@ -15,7 +15,7 @@ our %IRSSI = (
 sub do_lookup {
     my $tkt = shift;
     my $ret;
-    my @result=`$cmd/$tkt`;
+    my @result=`rt show -t ticket -f subject ticket/$tkt`;
     my $subj = $result[1];
     if (!($subj =~ m/^$/)) {
         chomp($subj);
