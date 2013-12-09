@@ -20,7 +20,7 @@ sub do_lookup {
     if (!($subj =~ m/^$/)) {
         chomp($subj);
         $subj =~ s/Subject/\#$tkt/;
-        $ret = "$subj - "https://rt4.cis.ksu.edu/rt/Ticket/Display.html?id=$tkt";
+        $ret = "$subj - https://rt4.cis.ksu.edu/rt/Ticket/Display.html?id=$tkt";
     } else {
         $ret = "Ticket \#$tkt not found";
     }
