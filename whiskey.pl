@@ -19,7 +19,7 @@ sub make_mine {
                  "bourbon",
                  "xanax" );
 
-    return rand(@mine);
+    return $mine[ rand(@mine) ];
 
 }
 sub get_ans {
