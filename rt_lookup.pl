@@ -34,9 +34,8 @@ sub handler {
 
     use utf8;
     $msg = decode_utf8 $msg;
-    if (($msg =~ m/\#\d{5}\b/) && ($target eq '#ksucis-dudes')) {
-        my $data =~ s/\#(\d{5})\b/\1/;
-        $msg = encode_utf8(do_lookup($data));
+    if (($msg =~ m/#(\d+)\b/) && ($target eq '#ksucis-dudes')) {
+        $msg = encode_utf8(do_lookup($1));
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
