@@ -22,6 +22,7 @@ sub list_help {
                      "donut <name>: tell <name> to go and take a flying fuck at a rolling donut (FOAAS)",
                      "everything: fuck everything (FOAAS)",
                      "everyone: everyone can go and fuck off (FOAAS)",
+                     "gtfo: time to go",
                      "help: Display this help",
                      "holy: holy fuck (FOAAS)",
                      "idm: When is it IDM time?",
