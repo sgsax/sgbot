@@ -22,6 +22,7 @@ sub make_mine {
     return $mine[ rand(@mine) ];
 
 }
+
 sub get_ans {
     my @answers = ( "Looks like you picked the wrong week to stop drinking",
                     "It's 5:00 somewhere",
@@ -42,13 +43,27 @@ sub get_ans {
     return $answers[ rand @answers ]; 
 }
 
+sub pick_booze {
+    my $booze = shift;
+    my $ret = "";
+
+    if ($booze =~ /^!whiskey/) {
+        $ret = get_ans();
+    } elsif ($booze =~ /^!rum/) {
+        $ret = "arrrrrrr!";
+    }
+
+    return $ret;
+}
+
 sub handler {
     my ($server, $msg, $nick, $addr, $target, $priv) = @_;
 
 #    use utf8;
     $msg = decode_utf8($msg);
-    if ($msg =~ m/^!whiskey/) {
-        $msg = encode_utf8(get_ans());
+    $msg = pick_booze($msg);
+    if ($msg ne "") {
+        $msg = encode_utf8($msg);
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
