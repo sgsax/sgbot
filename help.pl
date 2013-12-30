@@ -33,6 +33,7 @@ sub list_help {
                      "rfo [<name>]: random FOAAS selection (FOAAS)",
                      "rimshot: print url for rimshot sound",
                      "roy: every tech support call ever",
+                     "rum: say something piratey",
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
                      "tada: print url for tada sound",
                      "this: fuck this (FOAAS)",
