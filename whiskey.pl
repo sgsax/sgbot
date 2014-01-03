@@ -51,6 +51,8 @@ sub pick_booze {
         $ret = get_ans();
     } elsif ($booze =~ /^!rum/) {
         $ret = "arrrrrrr!";
+    } elsif ($booze =~ /^!tequila/) {
+        $ret = "What happens is Tijuana, stays in Tijuana.";
     }
 
     return $ret;

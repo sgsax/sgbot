@@ -36,6 +36,7 @@ sub list_help {
                      "rum: say something piratey",
                      "spell <word>: Simple spellchecker, looks up <word> and suggests replacements if needed",
                      "tada: print url for tada sound",
+                     "tequila: drinks are on me",
                      "this: fuck this (FOAAS)",
                      "that: fuck that (FOAAS)",
                      "train <name>: all aboard the fail train",
