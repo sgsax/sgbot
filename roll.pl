@@ -39,7 +39,11 @@ sub roll_or_flip {
         my $sides = $parts[1];
         if ($sides eq "") { $sides = "d6"; }
         my @valid = ( "d4", "d6", "d8", "d10", "d12", "d20" );
-        if (grep {$_ eq $sides} @valid) { $ret = roll_it($sides); }
+        if (grep {$_ eq $sides} @valid) { 
+            $ret = roll_it($sides);
+        } else {
+            $ret = "n00b";
+        }
     } elsif ($cmd =~ m/^!flip/) {
         $ret = flip_it();
     }
