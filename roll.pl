@@ -16,7 +16,8 @@ sub roll_it {
     my $sides = shift;
 
     $sides =~ s/\D//g;
-    return "You rolled a " . int(rand($sides));
+    my $roll = int(rand($sides)) + 1;
+    return "You rolled a $roll";
 }
 
 sub flip_it {
