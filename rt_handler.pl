@@ -45,23 +45,23 @@ sub handler {
 
     use utf8;
 
-    my $ret = "";
+    my $send = "";
     $msg = decode_utf8 $msg;
     if ($target eq '#ksucis-dudes') {
         if ($msg =~ m/#(\d+)\b/) {
-            $ret = encode_utf8(do_lookup($1));
+            $send = encode_utf8(do_lookup($1));
         } elsif (($msg =~ /^!del\s/)||($msg =~ /^!delete\s/)||
                 ($msg =~ /^!res\s/)||($msg =~ /^!resolve\s/)) {
             my @parts = split(/\s+/, $msg);
             my $cmd = $parts[0];
             $cmd =~ s/!//;
-            $ret = encode_utf8(do_cmd($parts[1], $cmd));
+            $send = encode_utf8(do_cmd($parts[1], $cmd));
         }
-        if ($ret ne "") {
+        if ($send ne "") {
             if ($priv) {
-                $server->command ("msg $nick $ret");
+                $server->command ("msg $nick $send");
             } else {
-                $server->command ("msg $target $ret");
+                $server->command ("msg $target $send");
             }
         }
     }
