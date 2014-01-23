@@ -59,9 +59,9 @@ sub handler {
         }
         if ($ret ne "") {
             if ($priv) {
-                $server->command ("msg $nick $msg");
+                $server->command ("msg $nick $ret");
             } else {
-                $server->command ("msg $target $msg");
+                $server->command ("msg $target $ret");
             }
         }
     }
