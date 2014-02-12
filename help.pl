@@ -44,6 +44,7 @@ sub list_help {
                      "train <name>: all aboard the fail train",
                      "trombone: print url for sad trombone sound",
                      "up <name>: <name> really fucked up (FOAAS)",
+                     "vodka: just like from the old country",
                      "weather [<location>]: Display weather report for <location> or MHK if not indicated",
                      "whiskey: for those really difficult days",
                      "woot [img] [buy]: Display today's Woot.com special, optionally include image and/or \"buy now\" URL",
