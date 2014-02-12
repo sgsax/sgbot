@@ -32,12 +32,12 @@ sub do_cmd {
     my $tkt = shift;
     my $cmd = shift;
 
-    my $ret;
+    my $resp;
 
     my @result=`rt $cmd $tkt`;
-    $ret = $result[1];
+    $resp = $result[1];
 
-    return $ret;
+    return $resp;
 }
 
 sub handler {
