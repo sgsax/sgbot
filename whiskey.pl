@@ -53,6 +53,8 @@ sub pick_booze {
         $ret = "arrrrrrr!";
     } elsif ($booze =~ /^!tequila/) {
         $ret = "What happens is Tijuana, stays in Tijuana.";
+    } elsif ($booze =~ /^!vodka/) {
+        $ret = "Drink up, my little friend!";
     }
 
     return $ret;
