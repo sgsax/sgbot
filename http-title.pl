@@ -12,8 +12,25 @@ our %IRSSI = (
     license     => 'Public Domain',
 );
 
+sub get_content {
+    my $url = shift;
+
+    my $uastring = 'Mozilla/5.0';
+    my $retstr = "";
+
+    use LWP::UserAgent;
+
+    my $ua = LWP::UserAgent->new;
+    $ua->agent($uastring);
+    my $res = $ua->get($url);
+    if ($res->is_success) {
+       $retstr = $res->content;
+    }
+
+    return $retstr;
+}
+
 sub get_title {
-    use LWP::Simple;
     use HTML::HeadParser;
 
     my $msg = shift;
@@ -21,9 +38,8 @@ sub get_title {
     my $ret;
     foreach my $text (@data) {
         if ($text =~ /https?:\/\//) {
-            my $raw = get($text);
             my $parser = HTML::HeadParser->new;
-            $parser->parse($raw);
+            $parser->parse(get_content($text));
             if (defined $parser->header('Title')) {
                 $ret = $parser->header('Title');
             } else {
