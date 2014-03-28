@@ -34,6 +34,11 @@ sub do_cmd {
 
     my $resp;
 
+    # in case we accidentally included a pound, get rid of it
+    if ($tkt =~ m/#/) { 
+        $tkt =~ s/#//;
+    }
+
     my @result=`rt $cmd $tkt`;
     $resp = $result[1];
 
