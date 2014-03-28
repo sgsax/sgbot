@@ -48,14 +48,14 @@ sub handler {
     my $send = "";
     $msg = decode_utf8 $msg;
     if ($target eq '#ksucis-dudes') {
-        if ($msg =~ m/#(\d+)\b/) {
-            $send = encode_utf8(do_lookup($1));
-        } elsif (($msg =~ /^!del\s/)||($msg =~ /^!delete\s/)||
+        if (($msg =~ /^!del\s/)||($msg =~ /^!delete\s/)||
                 ($msg =~ /^!res\s/)||($msg =~ /^!resolve\s/)) {
             my @parts = split(/\s+/, $msg);
             my $cmd = $parts[0];
             $cmd =~ s/!//;
             $send = encode_utf8(do_cmd($parts[1], $cmd));
+        } elsif ($msg =~ m/#(\d+)\b/) {
+            $send = encode_utf8(do_lookup($1));
         }
         if ($send ne "") {
             if ($priv) {
