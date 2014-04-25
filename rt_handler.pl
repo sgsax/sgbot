@@ -40,10 +40,10 @@ sub do_cmd {
     }
     
     if ($tkt =~ /^\+?\d+$/) {
-        $resp = "Ah, ah ,ah. You didn't say the magic word.";
-    } else {
         my @result=`rt $cmd $tkt`;
         $resp = $result[1];
+    } else {
+        $resp = "Ah, ah ,ah. You didn't say the magic word.";
     }
 
     return $resp;
