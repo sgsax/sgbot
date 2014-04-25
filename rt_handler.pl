@@ -38,9 +38,13 @@ sub do_cmd {
     if ($tkt =~ m/#/) { 
         $tkt =~ s/#//;
     }
-
-    my @result=`rt $cmd $tkt`;
-    $resp = $result[1];
+    
+    if ($tkt =~ /^\+?\d+$/) {
+        $resp = "Ah, ah ,ah. You didn't say the magic word.";
+    } else {
+        my @result=`rt $cmd $tkt`;
+        $resp = $result[1];
+    }
 
     return $resp;
 }
