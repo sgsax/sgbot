@@ -38,10 +38,10 @@ sub getlocation {
     my $data = $ical->parse_strings($raw);
 
     my $nextwed = getnextwed();
-
+    return $nextwed;
     # there should be only one key returned, but grab a slice just in case
-    my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
-    return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
+#    my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
+#    return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
 }
 
 sub handler {
