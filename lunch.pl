@@ -21,7 +21,7 @@ sub getnextwed {
     my $dow = $today->day_of_week;
     # if it's a lunch day and already after lunch, recalculate for next week
     my $now = DateTime->now(time_zone => "local");
-    if ($now->hour() >= 12) { $today += 1; };
+    if ($now->hour() >= 12) { $dow -= 1; };
     # find the next wednesday from today
     my $next = $today + ((3 - $dow) % 7);
     return [$next->year, $next->month, $next->day];
