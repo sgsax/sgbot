@@ -16,14 +16,15 @@ sub getnextwed {
     use Date::Simple (':all');
     use DateTime;
 
+    my $offset = 0;
     # day of week for today
     my $today = today();
     my $dow = $today->day_of_week;
     # if it's a lunch day and already after lunch, recalculate for next week
     my $now = DateTime->now(time_zone => "local");
-    if ($now->hour() >= 12) { $dow += 1; };
+    if (($now->hour() >= 12) && ($dow == 3)) { $offset = 7; };
     # find the next wednesday from today
-    my $next = $today + ((3 - $dow) % 7);
+    my $next = $today + ((3 - $dow) % 7) + $offset;
     return [$next->year, $next->month, $next->day];
 }
 
