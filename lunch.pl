@@ -37,7 +37,7 @@ sub getlocation {
     my $ical = iCal::Parser->new();
     my $data = $ical->parse_strings($raw);
 
-    my $nextwed = get_next_wed();
+    my $nextwed = getnextwed();
 
     # there should be only one key returned, but grab a slice just in case
     my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
