@@ -21,7 +21,7 @@ sub getnextwed {
     my $dow = $today->day_of_week;
     # if it's a lunch day and already after lunch, recalculate for next week
     my $now = DateTime->now(time_zone => "local");
-    #if ($now->hour() >= 12) { $dow += 1; };
+    if ($now->hour() >= 12) { $today += 1; };
     # find the next wednesday from today
     my $next = $today + ((3 - $dow) % 7);
     return [$next->year, $next->month, $next->day];
@@ -40,10 +40,9 @@ sub getlocation {
 
     my $nextwed = getnextwed();
     print Dumper($nextwed);
-    return $nextwed;
     # there should be only one key returned, but grab a slice just in case
-#    my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
-#    return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
+    my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
+    return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
 }
 
 sub handler {
