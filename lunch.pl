@@ -30,6 +30,7 @@ sub getnextwed {
 sub getlocation {
     use LWP::Simple;
     use iCal::Parser;
+    use Data::Dumper;
 
     my $url = 'https://www.google.com/calendar/ical/pnvjel5jlspo02q93gsoakpaf0%40group.calendar.google.com/public/basic.ics';
 
@@ -38,6 +39,7 @@ sub getlocation {
     my $data = $ical->parse_strings($raw);
 
     my $nextwed = getnextwed();
+    print Dumper($nextwed);
     return $nextwed;
     # there should be only one key returned, but grab a slice just in case
 #    my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
