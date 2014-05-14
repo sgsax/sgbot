@@ -3,6 +3,9 @@ use Encode;
 use vars qw($VERSION %IRSSI);
 use Irssi;
 
+use Date::Simple (':all');
+use DateTime;
+
 our $VERSION = '0.1';
 our %IRSSI = (
     authors     => 'Seth Galitzer',
@@ -12,25 +15,55 @@ our %IRSSI = (
     license     => 'Public Domain',
 );
 
-sub getnextwed {
-    use Date::Simple (':all');
-    use DateTime;
+sub wed_today {
+    my $today = shift;
+
+    return ($today->day_of_week == 3)
+}
+
+sub after_lunch {
+    my $now = shift;
+
+    return ($now->hour() >= 13)
+}
+
+sub get_next_mtg_date {
+    my $today = shift;
+    my $time = shift;
 
     my $offset = 0;
-    # day of week for today
-    my $today = today();
-    my $dow = $today->day_of_week;
     # if it's a lunch day and already after lunch, recalculate for next week
-    my $now = DateTime->now(time_zone => "local");
-    if (($now->hour() >= 12) && ($dow == 3)) { $offset = 7; };
+    if ((after_lunch($time)) && wed_today($today)) { $offset = 7; };
     # find the next wednesday from today
-    my $next = $today + ((3 - $dow) % 7) + $offset;
+    my $next = $today + ((3 - $today->day_of_week) % 7) + $offset;
     return [$next->year, $next->month, $next->day];
+}
+
+sub build_msg {
+    my $today = today();
+    my $now = DateTime->now(time_zone => "local");
+
+    my $msg = "Location of ";
+
+    my $loc = getlocation($today, $now);
+
+    if ((wed_today($today)) && !(after_lunch($now))) {
+        $msg .= "lunch today ";
+    } else {
+        $msg .= "next lunch ";
+    }
+
+    $msg .= "is $loc";
+
+    return $msg;
 }
 
 sub getlocation {
     use LWP::Simple;
     use iCal::Parser;
+
+    my $today = shift;
+    my $time = shift;
 
     my $url = 'https://www.google.com/calendar/ical/pnvjel5jlspo02q93gsoakpaf0%40group.calendar.google.com/public/basic.ics';
 
@@ -38,7 +71,7 @@ sub getlocation {
     my $ical = iCal::Parser->new();
     my $data = $ical->parse_strings($raw);
 
-    my $nextwed = getnextwed();
+    my $nextwed = get_next_mtg_date($today, $time);
     # there should be only one key returned, but grab a slice just in case
     my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
     return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
@@ -50,11 +83,11 @@ sub handler {
     use utf8;
     $msg = decode_utf8 $msg;
     if ($msg =~ m/^!lunch/) {
-        $msg = getlocation();
+        $msg = build_msg();
         if (!(defined $msg)) { 
             $msg = "error running command";
         } else {
-            $msg = encode_utf8("Location of next lunch is $msg");
+            $msg = encode_utf8($msg);
         }
         if ($priv) {
             $server->command ("msg $nick $msg");
