@@ -23,6 +23,7 @@ sub list_help {
                      "everything: fuck everything (FOAAS)",
                      "everyone: everyone can go and fuck off (FOAAS)",
                      "flip: flip a coin",
+                     "google: google that shit",
                      "gtfo: time to go",
                      "help: Display this help",
                      "holy: holy fuck (FOAAS)",
