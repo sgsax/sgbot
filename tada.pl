@@ -30,8 +30,8 @@ sub select_sound {
         $ret = "http://kan.st/1r7";
     } elsif ($input =~ m/^!google/) {
         $ret = "http://kan.st/1tc";
-#    } elsif ($input =~ m/^!gtfo/) {
-#        $ret = "http://kan.st/1cB";
+    } elsif ($input =~ m/^!USA/) {
+        $ret = "http://kan.st/1uZ";
     }
 
     return $ret;
