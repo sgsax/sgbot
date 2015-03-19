@@ -7,33 +7,22 @@ our $VERSION = '0.1';
 our %IRSSI = (
     authors     => 'Seth Galitzer',
     contact     => 'sethgali@gmail.com',
-    name        => 'tada',
-    description => 'return links to silly sound effects',
+    name        => 'rt_lookup',
+    description => 'looks up a ticket in RT by a provided number and returns the subject and url',
     license     => 'Public Domain',
 );
 
-sub select_sound {
-    my $input = shift;
-    my $ret = "";
-
-    if ($input =~ m/^!doh/) {
-        $ret = "http://kan.st/10M";
-    } elsif ($input =~ m/^!rimshot/) {
-        $ret = "http://kan.st/10L";
-    } elsif ($input =~ m/^!tada/) {
-        $ret = "http://kan.st/10K";
-    } elsif ($input =~ m/^!trombone/) {
-        $ret = "http://kan.st/XV";
-    } elsif ($input =~ m/^!khan/) {
-        $ret = "http://kan.st/1ix http://kan.st/13o";
-    } elsif ($input =~ m/^!supplies/) {
-        $ret = "http://kan.st/1r7";
-    } elsif ($input =~ m/^!google/) {
-        $ret = "http://kan.st/1tc";
-    } elsif ($input =~ m/^!USA/) {
-        $ret = "http://kan.st/1uZ";
-    } elsif ($input =~ m/^!freedom/) {
-        $ret = "http://kan.st/1GP";
+sub do_lookup {
+    my $tkt = shift;
+    my $ret;
+    my @result=`rt show -t ticket -f subject ticket/$tkt`;
+    my $subj = $result[1];
+    if (!($subj =~ m/^$/)) {
+        chomp($subj);
+        $subj =~ s/Subject/\#$tkt/;
+        $ret = "$subj - https://rt4.cis.ksu.edu/rt/Ticket/Display.html?id=$tkt";
+    } else {
+        $ret = "Ticket \#$tkt not found";
     }
 
     return $ret;
@@ -44,10 +33,8 @@ sub handler {
 
     use utf8;
     $msg = decode_utf8 $msg;
-
-    $msg = select_sound($msg);
-    if ($msg ne "") {
-        $msg = encode_utf8($msg);
+    if (($msg =~ m/#(\d+)\b/) && ($target eq '#ksucis-dudes')) {
+        $msg = encode_utf8(do_lookup($1));
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
