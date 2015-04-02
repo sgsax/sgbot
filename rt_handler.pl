@@ -8,7 +8,7 @@ our %IRSSI = (
     authors     => 'Seth Galitzer',
     contact     => 'sethgali@gmail.com',
     name        => 'rt_lookup',
-    description => 'looks up a ticket in RT by a provided number and returns the subject and url',
+    description => 'looks up a ticket in RT by a provided number and returns the subject and url; can optionally delete or resolve a ticket; assumes you have the rt cli tool in your search path and a .rtrc file in your homedir; change the value of $rthost in do_lookup() for your own RT host',
     license     => 'Public Domain',
 );
 
@@ -17,10 +17,11 @@ sub do_lookup {
     my $ret;
     my @result=`rt show -t ticket -f subject ticket/$tkt`;
     my $subj = $result[1];
+    my $rthost = "rt.cis.ksu.edu"; # change this for your own host
     if (!($subj =~ m/^$/)) {
         chomp($subj);
         $subj =~ s/Subject/\#$tkt/;
-        $ret = "$subj - https://rt.cis.ksu.edu/Ticket/Display.html?id=$tkt";
+        $ret = "$subj - https://$rthost/Ticket/Display.html?id=$tkt";
     } else {
         $ret = "Ticket \#$tkt not found";
     }
