@@ -83,6 +83,18 @@ Irssi::signal_add_last('message public', sub {
     handler($server, $msg, $nick, $addr, $target);
 });
 
+Irssi::signal_add_last('message irc action', sub {
+    my ($server, $msg, $nick, $addr, $target) = @_;
+    Irssi::signal_continue($server, $msg, $nick, $addr, $target);
+    handler($server, $msg, $nick, $addr, $target);
+});
+
+Irssi::signal_add_last('message irc own_action', sub {
+    my ($server, $msg, $target) = @_;
+    Irssi::signal_continue($server, $msg, '', '', $target);
+    handler($server, $msg, $nick, $addr, $target);
+});
+
 Irssi::signal_add_last('message private', sub {
     my ($server, $msg, $nick, $addr, $target) = @_;
     Irssi::signal_continue($server, $msg, $nick, $addr, $target);
