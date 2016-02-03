@@ -91,8 +91,8 @@ Irssi::signal_add_last('message irc action', sub {
 
 Irssi::signal_add_last('message irc own_action', sub {
     my ($server, $msg, $target) = @_;
-    Irssi::signal_continue($server, $msg, '', '', $target);
-    handler($server, $msg, $nick, $addr, $target);
+    Irssi::signal_continue($server, $msg, $target);
+    handler($server, $msg, '', '', $target);
 });
 
 Irssi::signal_add_last('message private', sub {
