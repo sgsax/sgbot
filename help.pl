@@ -63,7 +63,7 @@ sub handler {
     use utf8;
 
     $msg = decode_utf8 $msg;
-    if ($msg =~ m/^!help/) {
+    if ($msg =~ m/^!help$/) {
         foreach my $command (list_help()) {
             $server->command (encode_utf8("msg $nick $command"));
         }
