@@ -18,7 +18,8 @@ sub handler {
     use utf8;
     $msg = decode_utf8 $msg;
     if ($msg =~ m/^!roy/) {
-        $msg = encode_utf8("http://kan.st/11q");
+        # Hello, IT, have you tried turning it off and on again?
+        $msg = encode_utf8("https://youtu.be/W0y0nWAje-Q");
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {

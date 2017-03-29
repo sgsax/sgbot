@@ -24,6 +24,7 @@ sub make_mine {
 }
 
 sub get_ans {
+    # Youtube links are for Gaelic Storm, Nancy Whiskey, and Metallica, Whiskey in the Jar
     my @answers = ( "Looks like you picked the wrong week to stop drinking",
                     "It's 5:00 somewhere",
                     "The sun does appear to be just past the yardarm",
@@ -31,8 +32,8 @@ sub get_ans {
                     "You take the bottle out of your desk and take a nice, long pull",
                     "Why the hell not?",
                     "It's that kind of day",
-                    "http://kan.st/188",
-                    "http://kan.st/189",
+                    "https://youtu.be/xV75vhgXYjQ",
+                    "https://youtu.be/boanuwUMNNQ",
                     "Mmmmm... booze...",
                     "Make mine a " . make_mine(),
                     "I'll drink to that!",

@@ -17,23 +17,31 @@ sub select_sound {
     my $ret = "";
 
     if ($input =~ m/^!doh/) {
-        $ret = "http://kan.st/10M";
+        # http://www.wavsource.com/snds_2016-10-30_1570758759693582/tv/simpsons/homer/doh1_y.wav
+        $ret = "http://bit.ly/2fs0lsi";
     } elsif ($input =~ m/^!rimshot/) {
-        $ret = "http://kan.st/10L";
+        # http://instantrimshot.com/index.php?sound=rimshot&play=true
+        $ret = "http://bit.ly/1eUzUFm";
     } elsif ($input =~ m/^!tada/) {
-        $ret = "http://kan.st/10K";
+        # http://www.orangefreesounds.com/wp-content/uploads/2014/12/Ta-da-sound.mp3?_=1
+        $ret = "http://bit.ly/2fJhdde";
     } elsif ($input =~ m/^!trombone/) {
-        $ret = "http://kan.st/XV";
+        # http://www.freesound.org/data/previews/73/73581_634166-lq.mp3
+        $ret = "http://bit.ly/1Y3wXaV";
     } elsif ($input =~ m/^!khan/) {
-        $ret = "http://kan.st/1ix http://kan.st/13o";
+        # http://www.wavsource.com/snds_2016-10-30_1570758759693582/movies/star_trek/2khan.wav
+        $ret = "http://bit.ly/2fXX0FP";
     } elsif ($input =~ m/^!supplies/) {
-        $ret = "http://kan.st/1r7";
+        # UHF super racist SUPPLIES scene
+        $ret = "https://youtu.be/RB2GboGOuTI";
     } elsif ($input =~ m/^!google/) {
-        $ret = "http://kan.st/1tc";
+        # Taryn Southern - Google That Shit
+        $ret = "https://youtu.be/4knAlxMzp0s";
     } elsif ($input =~ m/^!USA/) {
-        $ret = "http://kan.st/1uZ";
+        $ret = "I got nothin";
     } elsif ($input =~ m/^!freedom/) {
-        $ret = "http://kan.st/1GP";
+        # Team America - Freedom isn't Free
+        $ret = "https://youtu.be/tzW2ybYFboQ";
     }
 
     return $ret;
