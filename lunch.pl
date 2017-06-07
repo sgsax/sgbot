@@ -73,7 +73,7 @@ sub getlocation {
 
     my $nextwed = get_next_mtg_date($today, $time);
     # there should be only one key returned, but grab a slice just in case
-    my $key = (keys $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]})[0];
+    my $key = (keys %{$data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}})[0];
     return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
 }
 
