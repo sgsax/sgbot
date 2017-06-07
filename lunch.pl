@@ -5,6 +5,7 @@ use Irssi;
 
 use Date::Simple (':all');
 use DateTime;
+use Time::Piece;
 
 our $VERSION = '0.1';
 our %IRSSI = (
