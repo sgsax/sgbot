@@ -39,13 +39,24 @@ sub get_next_mtg_date {
     return [$next->year, $next->month, $next->day];
 }
 
+sub get_time_diff {
+    my $nextwed = shift;
+    my $now = Time::Piece->strptime(shift,"%Y-%m-%dT%H:%M:%S");
+    my $next = Time::Piece->strptime("$$nextwed[0]-$$nextwed[1]-$$nextwed[2]T12:00:00", "%Y-%m-%dT%H:%M:%S");
+
+    my $diff = $next - $now;
+
+    return $diff->pretty;
+}
+
 sub build_msg {
     my $today = today();
     my $now = DateTime->now(time_zone => "local");
+	my $nextwed = get_next_mtg_date($today, $now);
 
     my $msg = "Location of ";
 
-    my $loc = getlocation($today, $now);
+    my $loc = getlocation($nextwed);
 
     if ((wed_today($today)) && !(after_lunch($now))) {
         $msg .= "lunch today ";
@@ -53,7 +64,7 @@ sub build_msg {
         $msg .= "next lunch ";
     }
 
-    $msg .= "is $loc";
+    $msg .= "is $loc, starting in " . get_time_diff($nextwed, $now);
 
     return $msg;
 }
@@ -62,8 +73,7 @@ sub getlocation {
     use LWP::Simple;
     use iCal::Parser;
 
-    my $today = shift;
-    my $time = shift;
+	my $nextwed = shift;
 
     my $url = 'https://www.google.com/calendar/ical/pnvjel5jlspo02q93gsoakpaf0%40group.calendar.google.com/public/basic.ics';
 
@@ -71,7 +81,6 @@ sub getlocation {
     my $ical = iCal::Parser->new();
     my $data = $ical->parse_strings($raw);
 
-    my $nextwed = get_next_mtg_date($today, $time);
     # there should be only one key returned, but grab a slice just in case
     my $key = (keys %{$data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}})[0];
     return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
