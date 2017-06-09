@@ -7,7 +7,7 @@ use Date::Simple (':all');
 use DateTime;
 use Time::Piece;
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 our %IRSSI = (
     authors     => 'Seth Galitzer',
     contact     => 'sethgali@gmail.com',
@@ -16,10 +16,14 @@ our %IRSSI = (
     license     => 'Public Domain',
 );
 
-sub wed_today {
+my $WED = 3;
+my $FRI = 5;
+
+sub is_today {
+    my $day = shift;
     my $today = shift;
 
-    return ($today->day_of_week == 3)
+    return ($today->day_of_week == $day)
 }
 
 sub after_lunch {
@@ -29,6 +33,7 @@ sub after_lunch {
 }
 
 sub get_next_mtg_date {
+    my $day = shift;
     my $today = shift;
     my $time = shift;
 
@@ -36,7 +41,7 @@ sub get_next_mtg_date {
     # if it's a lunch day and already after lunch, recalculate for next week
     if ((after_lunch($time)) && wed_today($today)) { $offset = 7; };
     # find the next wednesday from today
-    my $next = $today + ((3 - $today->day_of_week) % 7) + $offset;
+    my $next = $today + (($day - $today->day_of_week) % 7) + $offset;
     return [$next->year, $next->month, $next->day];
 }
 
@@ -51,21 +56,22 @@ sub get_time_diff {
 }
 
 sub build_msg {
+    my $day = shift;
     my $today = today();
     my $now = DateTime->now(time_zone => "local");
-	my $nextwed = get_next_mtg_date($today, $now);
+	my $nextdate = get_next_mtg_date($day, $today, $now);
 
-    my $msg = "Location of ";
+    my $msg = "";
+	my $label = "";
+    my $msg2 = "";
 
-    my $loc = getlocation($nextwed);
-
-    if ((wed_today($today)) && !(after_lunch($now))) {
-        $msg .= "lunch today ";
-    } else {
-        $msg .= "next lunch ";
+    if ($day == $WED) {
+        $label = "K-SLUG";
+        $msg2 = ", location is ". getlocation($nextdate);
+    } elsif ($day == $FRI) {
+        $label = "Friday";
     }
-
-    $msg .= "is $loc, starting in " . get_time_diff($nextwed, $now);
+    $msg = "Next $label lunch starts in " . get_time_diff($nextdate, $now) . $msg2;
 
     return $msg;
 }
@@ -87,18 +93,27 @@ sub getlocation {
     return  $data->{events}->{$$nextwed[0]}->{$$nextwed[1]}->{$$nextwed[2]}->{$key}->{LOCATION};
 }
 
+sub select_lunch {
+	my $input = shift;
+	my $ret = "";
+
+	if ($input =~ m/^!lunch/) {
+		$ret = build_msg($WED);
+	} elsif ($input =~ m/^!0lunch/) {
+		$ret = build_msg($FRI);
+	}
+
+	return $ret;
+}
 sub handler {
     my ($server, $msg, $nick, $addr, $target, $priv) = @_;
 
     use utf8;
     $msg = decode_utf8 $msg;
-    if ($msg =~ m/^!lunch/) {
-        $msg = build_msg();
-        if (!(defined $msg)) { 
-            $msg = "error running command";
-        } else {
-            $msg = encode_utf8($msg);
-        }
+
+	$msg = select_lunch($msg);
+    if ($msg ne "") { 
+        $msg = encode_utf8($msg);
         if ($priv) {
             $server->command ("msg $nick $msg");
         } else {
