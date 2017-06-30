@@ -30,6 +30,7 @@ sub do_lookup {
 }
 
 sub do_cmd {
+# for most commands that only require a ticket number
     my $tkt = shift;
     my $cmd = shift;
 
@@ -42,12 +43,80 @@ sub do_cmd {
     
     if ($tkt =~ /^\+?\d+$/) {
         my @result=`rt $cmd $tkt`;
-        $resp = $result[1];
+        if (defined $result[1]) {
+            # multiple rows returned, send back the second one
+            $resp = $result[1];
+        } else {
+            # only one row returned, send it back
+            $resp = $result[0];
+        }
     } else {
-        $resp = "Ah, ah ,ah. You didn't say the magic word.";
+        $resp = "Nincompoop! You forgot the ticket number!";
     }
 
     return $resp;
+}
+
+sub do_cmd_special {
+# some special commands are assembled before passing here, so just run as provided
+    my $cmd = shift;
+	my $resp = "";
+
+    my @result=`rt $cmd`;
+    if (defined $result[1]) {
+        # more than one row returned
+        if ($result[1] =~ /Ticket/) {
+            $resp = $result[1];
+        } else {
+            # edit commands with "add" return a bunch of extra ticket info,
+            #   only return the row with relevant info
+            $resp = $result[3];
+        }
+    } else {
+        # only one row returned
+        $resp = $result[0];
+    }
+    
+    return $resp;
+}
+
+sub parse_cmd {
+    my $input = shift;
+
+    my $ret = "";
+
+    my @parts = split(/\s+/, $input);
+    my $cmd = $parts[0];
+    $cmd =~ s/!rt//;
+
+    if (($cmd eq "del") || ($cmd eq "delete") ||
+        ($cmd eq "res") || ($cmd eq "resolve") ||
+        ($cmd eq "take") || ($cmd eq "steal") ||
+        ($cmd eq "untake")) {
+        $ret = do_cmd($parts[1], $cmd);
+    } elsif ($cmd eq "give") {
+        $cmd .= " $parts[1] $parts[2]";
+        $ret = do_cmd_special($cmd);
+        if ($ret =~ /updated/) {
+            $cmd = "comment -m \'this ticket has been assigned to $parts[2]\' $parts[1]";
+            $ret = do_cmd_special($cmd);
+        }
+    } elsif ($cmd eq "comment") {
+        my $comment = join(" ", @parts[2..($#parts)]);
+        $cmd = "comment -m \'$comment\' $parts[1]";
+        $ret = do_cmd($parts[1], $cmd);
+    } elsif (($cmd eq "cc") || ($cmd eq "admincc")) {
+        $cmd = "edit ticket/$parts[1] add $cmd=$parts[2]";
+        $ret = do_cmd_special($cmd);
+    } elsif ($cmd eq "req") {
+        $cmd = "edit ticket/$parts[1] set requestors=$parts[2]";
+        $ret = do_cmd_special($cmd);
+    } else {
+        $ret = "$cmd is an invalid command for rt";
+    }
+
+    return $ret;
+
 }
 
 sub handler {
@@ -58,12 +127,8 @@ sub handler {
     my $send = "";
     $msg = decode_utf8 $msg;
     if ($target eq '#ksucis-dudes') {
-        if (($msg =~ /^!del\s/)||($msg =~ /^!delete\s/)||
-                ($msg =~ /^!res\s/)||($msg =~ /^!resolve\s/)) {
-            my @parts = split(/\s+/, $msg);
-            my $cmd = $parts[0];
-            $cmd =~ s/!//;
-            $send = encode_utf8(do_cmd($parts[1], $cmd));
+        if ($msg =~ /^!rt/) {
+            $send = encode_utf8(parse_cmd($msg));
         } elsif ($msg =~ m/#(\d+)\b/) {
             $send = encode_utf8(do_lookup($1));
         }
