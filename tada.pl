@@ -17,8 +17,8 @@ sub select_sound {
     my $ret = "";
 
     if ($input =~ m/^!doh/) {
-        # http://www.wavsource.com/snds_2016-10-30_1570758759693582/tv/simpsons/homer/doh1_y.wav
-        $ret = "http://bit.ly/2fs0lsi";
+        # http://www.wavsource.com/snds_2017-07-30_6786517629734627/tv/simpsons/homer/doh1_y.wav
+        $ret = "http://bit.ly/2x529CB";
     } elsif ($input =~ m/^!rimshot/) {
         # http://instantrimshot.com/index.php?sound=rimshot&play=true
         $ret = "http://bit.ly/1eUzUFm";
