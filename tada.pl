@@ -42,6 +42,9 @@ sub select_sound {
     } elsif ($input =~ m/^!freedom/) {
         # Team America - Freedom isn't Free
         $ret = "https://youtu.be/tzW2ybYFboQ";
+    } elsif ($input =~ m/^!takei/) {
+        # Oh myyyyyyy
+        $ret = "http://bit.ly/2dEsCgB"
     }
 
     return $ret;
