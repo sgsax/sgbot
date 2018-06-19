@@ -39,7 +39,7 @@ sub get_next_mtg_date {
 
     my $offset = 0;
     # if it's a lunch day and already after lunch, recalculate for next week
-    if ((after_lunch($time)) && is_today($today)) { $offset = 7; };
+    if ((after_lunch($time)) && is_today($day, $today)) { $offset = 7; };
     # find the next wednesday from today
     my $next = $today + (($day - $today->day_of_week) % 7) + $offset;
     return [$next->year, $next->month, $next->day];
