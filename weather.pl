@@ -55,11 +55,11 @@ sub get_the_weather {
     } else {
         $ret = "Current weather for $data_current->{display_location}->{full} | ";
         $ret .= "$data_current->{observation_time} | ";
-        $ret .= "$data_current->{weather}, Temp: $data_current->{temp_f}\x{c2}\x{b0}F,";
+        $ret .= "$data_current->{weather}, Temp: $data_current->{temp_f}\x{b0}F,";
         if ($data_current->{heat_index_f} ne 'NA') {
-            $ret .= " Heat Index: $data_current->{heat_index_f} \x{c2}\x{b0}F | ";
+            $ret .= " Heat Index: $data_current->{heat_index_f}\x{b0}F | ";
         } else {
-            $ret .= " Wind Chill: $data_current->{windchill_f} \x{c2}\x{b0}F | ";
+            $ret .= " Wind Chill: $data_current->{windchill_f}\x{b0}F | ";
         };
         $ret .= "Humidity: $data_current->{relative_humidity}, Pressure: $data_current->{pressure_in}\" | ";
         $ret .= "Wind: $data_current->{wind_dir} $data_current->{wind_mph}mph | ";
