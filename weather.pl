@@ -30,14 +30,17 @@ sub get_the_weather {
     # get forecast data
     my $output_forecast = get("http:\/\/api.wunderground.com\/auto\/wui\/geo\/ForecastXML\/index.xml?query=$location");
  
-    if (not defined $output_current or not defined $output_forecast) {
-        return "Error grabbing weather information :-(\n";
-    }
+    my $data_current;
+    my $data_forecast;
  
     # parse retrieved data and dump XML to hash reference
     my $xml = new XML::Simple;
-    my $data_current = $xml->XMLin($output_current);
-    my $data_forecast = $xml->XMLin($output_forecast);
+    if (defined $output_current) {
+        my $data_current = $xml->XMLin($output_current);
+    }
+    if (defined $output_forecast) {
+        my $data_forecast = $xml->XMLin($output_forecast);
+    }
     ##print Dumper($data_current);
     ##print Dumper($data_forecast);
     
@@ -46,20 +49,28 @@ sub get_the_weather {
     }
     
     # display data
-    my $ret = "Current weather for $data_current->{display_location}->{full} | ";
-    $ret .= "$data_current->{observation_time} | ";
-    $ret .= "$data_current->{weather}, Temp: $data_current->{temp_f},";
-    if ($data_current->{heat_index_f} ne 'NA') {
-        $ret .= " Heat Index: $data_current->{heat_index_f} F | ";
+    if (not defined $output_current) {
+        $ret = "Current weather not available";
     } else {
-        $ret .= " Wind Chill: $data_current->{windchill_f} F | ";
-    };
-    $ret .= "Humidity: $data_current->{relative_humidity}, Pressure: $data_current->{pressure_in}\" | ";
-    $ret .= "Wind: $data_current->{wind_dir} $data_current->{wind_mph}mph | ";
-    
-    $ret .= "Forecast: $data_forecast->{simpleforecast}->{forecastday}[1]->{conditions} | ";
-    $ret .= "High: $data_forecast->{simpleforecast}->{forecastday}[1]->{high}->{fahrenheit} F,";
-    $ret .= " Low: $data_forecast->{simpleforecast}->{forecastday}[1]->{low}->{fahrenheit} F";
+        my $ret = "Current weather for $data_current->{display_location}->{full} | ";
+        $ret .= "$data_current->{observation_time} | ";
+        $ret .= "$data_current->{weather}, Temp: $data_current->{temp_f},";
+        if ($data_current->{heat_index_f} ne 'NA') {
+            $ret .= " Heat Index: $data_current->{heat_index_f} F | ";
+        } else {
+            $ret .= " Wind Chill: $data_current->{windchill_f} F | ";
+        };
+        $ret .= "Humidity: $data_current->{relative_humidity}, Pressure: $data_current->{pressure_in}\" | ";
+        $ret .= "Wind: $data_current->{wind_dir} $data_current->{wind_mph}mph | ";
+    }
+
+    if (not defined $output_forecast) {
+        $ret .= "Forecast not available";
+    } else {
+        $ret .= "Forecast: $data_forecast->{simpleforecast}->{forecastday}[1]->{conditions} | ";
+        $ret .= "High: $data_forecast->{simpleforecast}->{forecastday}[1]->{high}->{fahrenheit} F,";
+        $ret .= " Low: $data_forecast->{simpleforecast}->{forecastday}[1]->{low}->{fahrenheit} F";
+    }
 
     return $ret;
 }
