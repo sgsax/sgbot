@@ -32,7 +32,8 @@ sub get_the_weather {
  
     my $data_current;
     my $data_forecast;
- 
+    my $ret;
+
     # parse retrieved data and dump XML to hash reference
     my $xml = new XML::Simple;
     if (defined $output_current) {
@@ -52,7 +53,7 @@ sub get_the_weather {
     if (not defined $output_current) {
         $ret = "Current weather not available";
     } else {
-        my $ret = "Current weather for $data_current->{display_location}->{full} | ";
+        $ret = "Current weather for $data_current->{display_location}->{full} | ";
         $ret .= "$data_current->{observation_time} | ";
         $ret .= "$data_current->{weather}, Temp: $data_current->{temp_f},";
         if ($data_current->{heat_index_f} ne 'NA') {
