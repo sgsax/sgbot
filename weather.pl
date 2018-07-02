@@ -37,10 +37,10 @@ sub get_the_weather {
     # parse retrieved data and dump XML to hash reference
     my $xml = new XML::Simple;
     if (defined $output_current) {
-        my $data_current = $xml->XMLin($output_current);
+        $data_current = $xml->XMLin($output_current);
     }
     if (defined $output_forecast) {
-        my $data_forecast = $xml->XMLin($output_forecast);
+        $data_forecast = $xml->XMLin($output_forecast);
     }
     ##print Dumper($data_current);
     ##print Dumper($data_forecast);
@@ -55,11 +55,11 @@ sub get_the_weather {
     } else {
         $ret = "Current weather for $data_current->{display_location}->{full} | ";
         $ret .= "$data_current->{observation_time} | ";
-        $ret .= "$data_current->{weather}, Temp: $data_current->{temp_f},";
+        $ret .= "$data_current->{weather}, Temp: $data_current->{temp_f}\x{c2}\x{b0}F,";
         if ($data_current->{heat_index_f} ne 'NA') {
-            $ret .= " Heat Index: $data_current->{heat_index_f} F | ";
+            $ret .= " Heat Index: $data_current->{heat_index_f} \x{c2}\x{b0}F | ";
         } else {
-            $ret .= " Wind Chill: $data_current->{windchill_f} F | ";
+            $ret .= " Wind Chill: $data_current->{windchill_f} \x{c2}\x{b0}F | ";
         };
         $ret .= "Humidity: $data_current->{relative_humidity}, Pressure: $data_current->{pressure_in}\" | ";
         $ret .= "Wind: $data_current->{wind_dir} $data_current->{wind_mph}mph | ";
