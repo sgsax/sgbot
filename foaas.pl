@@ -27,7 +27,8 @@ sub randomizer {
                       "!holy",
                       "!everyone",
                       "!donut $parts[1]",
-                      "!linus $parts[1]" );
+                      "!linus $parts[1]", 
+                      "!finger $parts[1]" );
 
     return $selection[ rand @selection ];
 }
@@ -67,6 +68,9 @@ sub generate_message {
         if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
     } elsif ($parts[0] =~ m/^!linus/) {
         $ret = "There aren't enough swear-words in the English language, so now I'll have to call you perkeleen vittupää just to express my disgust and frustration with this crap. - $nick";
+        if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
+    } elsif ($parts[0] =~ m/^!finger/) {
+        $ret = "🖕🖕🖕 - $nick";
         if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
     }
 
