@@ -37,6 +37,8 @@ sub generate_message {
     my ($msg, $nick) = @_;
     my $ret = "";
 
+    my $finger = "\N{U+1F595}";
+
     my @parts = split(/\s+/, $msg);
     if ($parts[0] =~ m/^!off/) {
         $ret = "Fuck off. - $nick";
@@ -70,7 +72,7 @@ sub generate_message {
         $ret = "There aren't enough swear-words in the English language, so now I'll have to call you perkeleen vittupää just to express my disgust and frustration with this crap. - $nick";
         if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
     } elsif ($parts[0] =~ m/^!finger/) {
-        $ret = "🖕🖕🖕 - $nick";
+        $ret = "$finger$finger$finger - $nick";
         if ($parts[1] ne "") { $ret = "$parts[1]: $ret"; }
     }
 
