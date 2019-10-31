@@ -34,7 +34,7 @@ sub roll_or_flip {
     my $cmd = shift;
     my $ret = "";
     
-    if ($cmd =~ m/^!roll/) {
+    if ($cmd =~ m/^!roll\b/) {
         my @parts = split(/\s+/, $cmd);
         my $sides = $parts[1];
         if ($sides eq "") { $sides = "d6"; }
