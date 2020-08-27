@@ -18,7 +18,7 @@ sub is_it_friday {
     my $today = today();
     my $ret = "Nope";
     if ($today->day_of_week == 5) {
-        $ret = "Yep";
+        $ret = "Yep https://youtu.be/9mHDAYutrC0";
     }
     return $ret;
 }
