@@ -1,5 +1,5 @@
 use strict;
-use Encode qw(encode_utf8);
+use Encode;
 use HTML::Entities qw(decode_entities);
 use vars qw($VERSION %IRSSI);
 use Irssi;
