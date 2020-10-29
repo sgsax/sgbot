@@ -1,9 +1,10 @@
 use strict;
-use Encode;
+use Encode qw(encode_utf8);
+use HTML::Entities qw(decode_entities);
 use vars qw($VERSION %IRSSI);
 use Irssi;
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 our %IRSSI = (
     authors     => 'Seth Galitzer',
     contact     => 'sethgali@gmail.com',
@@ -39,12 +40,20 @@ sub get_title {
     foreach my $text (@data) {
         if ($text =~ /https?:\/\//) {
             my $parser = HTML::HeadParser->new;
-            $parser->parse(get_content($text));
-            if (defined $parser->header('Title')) {
-                $ret = $parser->header('Title');
+            my $content = get_content($text);
+
+            if (($text =~ /youtube\.com/) || ($text =~ /youtu\.be/)){
+                if ($content =~ /<meta name="title" content="(.*)">/) {
+                    $ret = $1;
+                }
             } else {
-                $ret = "";
-            }  
+                $parser->parse($content);
+                if (defined $parser->header('Title')) {
+                    $ret = $parser->header('Title');
+                } else {
+                    $ret = "";
+                }
+            }
             last;
         }
     }
@@ -57,7 +66,7 @@ sub handler {
     use utf8;
     $msg = decode_utf8 $msg;
     if ($msg =~ /https?:\/\//) {
-        $msg = encode_utf8(get_title($msg));
+        $msg = encode_utf8(decode_entities(get_title($msg)));
         if ($msg ne "") {
             if ($priv) {
                 $server->command ("msg $nick your url is \"$msg\"");
