@@ -27,11 +27,12 @@ our %icons = (
 
 sub get_secrets {
     use File::Slurp;
+    use File::Basename;
     
     # The secrets.json file should be placed in the same directory as this
     #   script and should be formatted as follows:
     #   { "apikey" : "youropenweathermapapikey" }
-    my $secrets = read_file("./secrets.json");
+    my $secrets = read_file(dirname(__FILE__) . "/secrets.json");
     return decode_json($secrets);
 }
 
