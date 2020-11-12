@@ -36,6 +36,47 @@ sub get_secrets {
     return decode_json($secrets);
 }
 
+sub get_compass {
+    my $deg = shift;
+    my $ret = "";
+
+    if ((($deg >= 355) && ($deg < 360)) || (($deg >= 0) && ($deg < 5))) {
+        $ret = "N";
+    } elsif (($deg >= 5) && ($deg < 35)) {
+        $ret = "NNE";
+    } elsif (($deg >= 35) && ($deg < 50)) {
+        $ret = "NE";
+    } elsif (($deg >= 50) && ($deg < 85)) {
+        $ret = "ENE";
+    } elsif (($deg >= 85) && ($deg < 95)) {
+        $ret = "E";
+    } elsif (($deg >= 95) && ($deg < 130)) {
+        $ret = "ESE";
+    } elsif (($deg >= 130) && ($deg < 140)) {
+        $ret = "SE";
+    } elsif (($deg >= 140) && ($deg < 175)) {
+        $ret = "SSE";
+    } elsif (($deg >= 175) && ($deg < 185)) {
+        $ret = "S";
+    } elsif (($deg >= 185) && ($deg < 220)) {
+        $ret = "SSW";
+    } elsif (($deg >= 220) && ($deg < 230)) {
+        $ret = "SW";
+    } elsif (($deg >= 230) && ($deg < 265)) {
+        $ret = "WSW";
+    } elsif (($deg >= 265) && ($deg < 275)) {
+        $ret = "W";
+    } elsif (($deg >= 275) && ($deg < 310)) {
+        $ret = "WNW";
+    } elsif (($deg >= 310) && ($deg < 320)) {
+        $ret = "NW";
+    } elsif (($deg >= 320) && ($deg < 355)) {
+        $ret = "NNW";
+    };
+
+    return $ret;
+}
+
 sub get_the_weather {
     use LWP::Simple;
     use URI::Escape;
@@ -77,7 +118,7 @@ sub get_the_weather {
         $ret .= "Temp: $current->{main}->{temp}\x{b0}F, ";
         $ret .= "Feels like: $current->{main}->{feels_like}\x{b0}F | ";
         $ret .= "Humidity: $current->{main}->{humidity}%, Pressure: $current->{main}->{pressure} hPa | ";
-        $ret .= "Wind: $current->{wind}->{deg} $current->{wind}->{speed} mph | ";
+        $ret .= "Wind: " . get_compass($current->{wind}->{deg}) . " $current->{wind}->{speed} mph | ";
     }
 
     if (not defined $forecast) {
