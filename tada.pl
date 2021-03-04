@@ -45,6 +45,9 @@ sub select_sound {
     } elsif ($input =~ m/^!takei/) {
         # Oh myyyyyyy
         $ret = "http://bit.ly/2dEsCgB"
+    } elsif ($input =~ m/^!plam/) {
+        # http://people.cs.ksu.edu/~sgsax/pics/plam.gif
+        $ret = "https://bit.ly/3kMnUhG"
     }
 
     return $ret;
