@@ -18,6 +18,7 @@ sub list_help {
                      "bofh: Display witty fortunes for sysadmins",
                      "calc <formula>: Simple, in-line calculator, evaluates <formula> and returns the answer",
                      "cool: silly response to this statement",
+                     "dns: It's always DNS",
                      "doh: play Homer sound",
                      "flip: flip a coin",
                      "help: Display this help",
